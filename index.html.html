@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shashank Gowda — Creative Developer & Tech Enthusiast</title>
+  
+  <!-- Modern Google Fonts: Outfit & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    /* ==========================================================================
+       STREAMING_CHUNK:Defining design system variables and high-tech color palette...
+       ========================================================================== */
+    :root {
+      /* Color Tokens */
+      --bg-dark: #030712;
+      --bg-card: rgba(15, 23, 42, 0.65);
+      --bg-card-hover: rgba(30, 41, 59, 0.85);
+      --bg-glass: rgba(255, 255, 255, 0.03);
+      
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-glow: rgba(56, 189, 248, 0.4);
+      --border-accent: rgba(168, 85, 247, 0.5);
+
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      
+      --cyan-neon: #06b6d4;
+      --emerald-neon: #10b981;
+      --purple-neon: #a855f7;
+      --pink-neon: #ec4899;
+
+      /* Gradients */
+      --grad-hero: linear-gradient(135deg, #ffffff 0%, #38bdf8 35%, #a855f7 70%, #ec4899 100%);
+      --grad-primary: linear-gradient(135deg, #06b6d4 0%, #3b82f6 50%, #a855f7 100%);
+      --grad-emerald: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+      --grad-border: conic-gradient(from 0deg, #06b6d4, #a855f7, #ec4899, #10b981, #06b6d4);
+
+      /* Typography */
+      --font-heading: 'Outfit', -apple-system, sans-serif;
+      --font-code: 'JetBrains Mono', monospace;
+
+      /* Layout */
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 28px;
+      --radius-full: 9999px;
+
+      /* Effects */
+      --backdrop-blur: blur(20px) saturate(180%);
+      --shadow-neon: 0 0 35px rgba(6, 182, 212, 0.35);
+      --shadow-card: 0 25px 50px -12px rgba(0, 0, 0, 0.85);
+      
+      --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      --transition-fast: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ==========================================================================
+       STREAMING_CHUNK:Setting up resets and dynamic multi-layered CSS background...
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: var(--font-heading);
+      background-color: var(--bg-dark);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Interactive Canvas Background */
+    #particle-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -3;
+      pointer-events: none;
+    }
+
+    /* Animated Ambient Glow Orbs */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      z-index: -2;
+      pointer-events: none;
+      opacity: 0.55;
+      animation: floatOrb 20s ease-in-out infinite alternate;
+    }
+
+    .orb-1 {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(6, 182, 212, 0.4) 0%, rgba(0, 0, 0, 0) 70%);
+      top: -100px;
+      left: -100px;
+    }
+
+    .orb-2 {
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.35) 0%, rgba(0, 0, 0, 0) 70%);
+      top: 40%;
+      right: -150px;
+      animation-delay: -7s;
+    }
+
+    .orb-3 {
+      width: 450px;
+      height: 450px;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.3) 0%, rgba(0, 0, 0, 0) 70%);
+      bottom: -100px;
+      left: 20%;
+      animation-delay: -14s;
+    }
+
+    @keyframes floatOrb {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(60px, 80px) scale(1.15); }
+      100% { transform: translate(-40px, 40px) scale(0.95); }
+    }
+
+    /* High-Tech Grid Pattern Overlay */
+    .grid-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-image: 
+        repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.03) 0px, rgba(255, 255, 255, 0.03) 1px, transparent 1px, transparent 60px),
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.03) 0px, rgba(255, 255, 255, 0.03) 1px, transparent 1px, transparent 60px);
+      mask-image: radial-gradient(ellipse 90% 80% at 50% 30%, #000 40%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 30%, #000 40%, transparent 100%);
+      pointer-events: none;
+    }
+
+    /* Utility Classes */
+    .container {
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .text-gradient {
+      background: var(--grad-hero);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+
+    /* ==========================================================================
+       STREAMING_CHUNK:Styling Navigation Header with Glassmorphism...
+       ========================================================================== */
+    .header-wrapper {
+      position: fixed;
+      top: 1.5rem;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.85rem 1.75rem;
+      background: rgba(10, 15, 30, 0.7);
+      backdrop-filter: var(--backdrop-blur);
+      -webkit-backdrop-filter: var(--backdrop-blur);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-full);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      text-decoration: none;
+      color: var(--text-primary);
+      font-weight: 800;
+      font-size: 1.3rem;
+      letter-spacing: -0.02em;
+    }
+
+    .logo-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: var(--grad-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.2rem;
+      box-shadow: var(--shadow-neon);
+      position: relative;
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 2.25rem;
+      list-style: none;
+    }
+
+    .nav-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: var(--transition-fast);
+      position: relative;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--text-primary);
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--grad-primary);
+      border-radius: var(--radius-full);
+      transition: var(--transition-fast);
+    }
+
+    .nav-link:hover::after, .nav-link.active::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      padding: 0.75rem 1.6rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      text-decoration: none;
+      transition: var(--transition-smooth);
+      border: none;
+      outline: none;
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-glow {
+      background: var(--grad-primary);
+      color: #ffffff;
+      box-shadow: 0 0 25px rgba(6, 182, 212, 0.4);
+      overflow: hidden;
+    }
+
+    .btn-glow::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #06b6d4 100%);
+      opacity: 0;
+      z-index: -1;
+      transition: opacity 0.4s ease;
+    }
+
+    .btn-glow:hover::before {
+      opacity: 1;
+    }
+
+    .btn-glow:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 0 40px rgba(168, 85, 247, 0.6);
+    }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-primary);
+      border: 1px solid var(--border-subtle);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--cyan-neon);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    /* ==========================================================================
+       STREAMING_CHUNK:Styling Hero Section with dynamic neon glow & profile card...
+       ========================================================================== */
+    .hero-section {
+      padding: 12rem 0 6rem 0;
+      position: relative;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.5rem 1.25rem;
+      border-radius: var(--radius-full);
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #6ee7b7;
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .pulse-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--emerald-neon);
+      box-shadow: 0 0 12px var(--emerald-neon);
+      position: relative;
+    }
+
+    .pulse-dot::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 2px solid var(--emerald-neon);
+      animation: pulseRing 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+    }
+
+    @keyframes pulseRing {
+      0% { transform: scale(0.5); opacity: 1; }
+      100% { transform: scale(2.2); opacity: 0; }
+    }
+
+    .hero-heading {
+      font-size: clamp(3.2rem, 5.5vw, 5.2rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.25rem;
+      text-transform: uppercase;
+      text-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1.2rem, 2vw, 1.6rem);
+      color: var(--cyan-neon);
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-description {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+      max-width: 620px;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    /* Conic Gradient Animated Border Container for Terminal */
+    .conic-border-box {
+      position: relative;
+      border-radius: var(--radius-lg);
+      padding: 2px;
+      background: var(--grad-border);
+      background-size: 200% 200%;
+      animation: spinGradient 6s linear infinite;
+      box-shadow: var(--shadow-card);
+    }
+
+    @keyframes spinGradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Terminal Container */
+    .terminal-card {
+      background: rgba(7, 12, 23, 0.95);
+      border-radius: calc(var(--radius-lg) - 2px);
+      padding: 1.75rem;
+      backdrop-filter: blur(20px);
+      font-family: var(--font-code);
+    }
+
+    .terminal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 1rem;
+      margin-bottom: 1.25rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .terminal-dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .t-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    .t-red { background: #ff5f57; }
+    .t-yellow { background: #febc2e; }
+    .t-green { background: #28c840; }
+
+    .terminal-path {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .terminal-content {
+      font-size: 0.9rem;
+      line-height: 1.8;
+    }
+
+    .code-line {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .c-prompt { color: var(--emerald-neon); font-weight: 700; }
+    .c-key { color: var(--purple-neon); }
+    .c-string { color: #38bdf8; }
+    .c-val { color: #f59e0b; }
+    .c-comment { color: var(--text-muted); font-style: italic; }
+
+    /* ==========================================================================
+       STREAMING_CHUNK:Styling 3D Interactive Project & Skill Cards with Glassmorphism...
+       ========================================================================== */
+    .section-wrapper {
+      padding: 7rem 0;
+      position: relative;
+    }
+
+    .section-title-box {
+      text-align: center;
+      margin-bottom: 4.5rem;
+    }
+
+    .section-tag {
+      color: var(--cyan-neon);
+      font-family: var(--font-code);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    .section-heading {
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    /* Filter Tabs */
+    .filter-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 3.5rem;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      padding: 0.6rem 1.5rem;
+      border-radius: var(--radius-full);
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    .tab-btn.active, .tab-btn:hover {
+      background: var(--grad-primary);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+    }
+
+    /* Cards Grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+
+    /* Modern 3D Tilt Card Component */
+    .card-3d {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem;
+      backdrop-filter: var(--backdrop-blur);
+      -webkit-backdrop-filter: var(--backdrop-blur);
+      box-shadow: var(--shadow-card);
+      transition: transform 0.25s ease-out, border-color 0.3s ease, box-shadow 0.3s ease;
+      transform-style: preserve-3d;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card-3d:hover {
+      border-color: var(--border-glow);
+      box-shadow: 0 20px 40px -15px rgba(6, 182, 212, 0.25);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-icon-wrapper {
+      width: 58px;
+      height: 58px;
+      border-radius: var(--radius-md);
+      background: rgba(6, 182, 212, 0.08);
+      border: 1px solid rgba(6, 182, 212, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      color: var(--cyan-neon);
+      transition: var(--transition-smooth);
+    }
+
+    .card-3d:hover .card-icon-wrapper {
+      background: var(--grad-primary);
+      color: #fff;
+      transform: translateZ(20px) rotate(-5deg);
+      box-shadow: var(--shadow-neon);
+    }
+
+    .card-badge {
+      font-size: 0.75rem;
+      font-family: var(--font-code);
+      padding: 0.3rem 0.8rem;
+      border-radius: var(--radius-full);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+    }
+
+    .card-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .card-description {
+      color: var(--text-secondary);
+      font-size: 0.98rem;
+      line-height: 1.65;
+      margin-bottom: 1.75rem;
+    }
+
+    /* Tag List */
+    .tag-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .tag {
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.04);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.15);
+    }
+
+    .card-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: var(--cyan-neon);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: var(--transition-fast);
+      margin-top: auto;
+    }
+
+    .card-action:hover {
+      gap: 0.9rem;
+      color: #38bdf8;
+    }
+
+    /* Showcase Featured Card */
+    .showcase-banner {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 3.5rem;
+      padding: 3.5rem;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 27, 75, 0.7) 100%);
+      border: 1px solid var(--border-accent);
+    }
+
+    .showcase-banner:hover {
+      border-color: var(--pink-neon);
+    }
+
+    .showcase-media {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+      position: relative;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    .showcase-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+
+    .showcase-banner:hover .showcase-media img {
+      transform: scale(1.05);
+    }
+
+    /* ==========================================================================
+       STREAMING_CHUNK:Styling Footer Section with social links & copyright...
+       ========================================================================== */
+    .site-footer {
+      border-top: 1px solid var(--border-subtle);
+      padding: 5rem 0 2.5rem 0;
+      background: rgba(3, 7, 18, 0.95);
+      backdrop-filter: blur(16px);
+      margin-top: 6rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr repeat(3, 1fr);
+      gap: 3.5rem;
+      margin-bottom: 4rem;
+    }
+
+    .footer-brand-desc {
+      color: var(--text-secondary);
+      margin-top: 1.2rem;
+      font-size: 0.95rem;
+      max-width: 340px;
+      line-height: 1.7;
+    }
+
+    .footer-heading {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-list {
+      list-style: none;
+    }
+
+    .footer-list li {
+      margin-bottom: 0.85rem;
+    }
+
+    .footer-list a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.93rem;
+      transition: var(--transition-fast);
+    }
+
+    .footer-list a:hover {
+      color: var(--cyan-neon);
+      padding-left: 4px;
+    }
+
+    .footer-bottom {
+      padding-top: 2.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .social-bar {
+      display: flex;
+      gap: 1.25rem;
+    }
+
+    .social-icon-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: var(--transition-fast);
+    }
+
+    .social-icon-btn:hover {
+      background: var(--grad-primary);
+      color: #fff;
+      border-color: transparent;
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-neon);
+    }
+
+    /* Media Queries for Adaptability */
+    @media (max-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 3.5rem;
+      }
+      .showcase-banner {
+        grid-template-columns: 1fr;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu { display: none; }
+      .hero-section { padding-top: 9rem; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Particle Web GL Canvas Backdrop -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- Ambient Glow Orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- Geometric Grid Background Pattern -->
+  <div class="grid-overlay"></div>
+
+  <div class="header-wrapper">
+    <div class="container">
+      <nav class="navbar">
+        <a href="#" class="brand-logo">
+          <div class="logo-badge">
+            <i class="fa-solid fa-code"></i>
+          </div>
+          <span>SHASHANK<span style="color: var(--cyan-neon);">.GOWDA</span></span>
+        </a>
+
+        <ul class="nav-menu">
+          <li><a href="#about" class="nav-link active">About</a></li>
+          <li><a href="#projects" class="nav-link">Projects</a></li>
+          <li><a href="#skills" class="nav-link">Skills</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+
+        <div class="nav-cta">
+          <a href="#contact" class="btn btn-outline">Let's Talk</a>
+          <a href="#projects" class="btn btn-glow">
+            <span>Explore Work</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero-section" id="about">
+      <div class="container">
+        <div class="hero-grid">
+          
+          <!-- Left Column: Hero Text -->
+          <div class="hero-content">
+            <div class="status-pill">
+              <span class="pulse-dot"></span>
+              <span>Available for Innovative Projects</span>
+              <i class="fa-solid fa-sparkles" style="color: #f59e0b; font-size: 0.8rem;"></i>
+            </div>
+
+            <h1 class="hero-heading">
+              SHASHANK <br>
+              <span class="text-gradient">GOWDA</span>
+            </h1>
+
+            <div class="hero-subtitle">
+              &lt; Creative Developer & Tech Enthusiast /&gt;
+            </div>
+
+            <p class="hero-description">
+              Engineering sleek digital architectures, interactive high-performance web applications, and futuristic user interfaces with modern web standards and deep technical passion.
+            </p>
+
+            <div class="hero-actions">
+              <a href="#projects" class="btn btn-glow" style="padding: 0.9rem 2.2rem; font-size: 1.05rem;">
+                <i class="fa-solid fa-rocket"></i>
+                <span>View Portfolio</span>
+              </a>
+              <a href="#contact" class="btn btn-outline" style="padding: 0.9rem 2.2rem; font-size: 1.05rem;">
+                <i class="fa-solid fa-paper-plane"></i>
+                <span>Contact Me</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Right Column: Animated Conic Terminal -->
+          <div class="hero-terminal-wrapper">
+            <div class="conic-border-box">
+              <div class="terminal-card">
+                <div class="terminal-header">
+                  <div class="terminal-dots">
+                    <span class="t-dot t-red"></span>
+                    <span class="t-dot t-yellow"></span>
+                    <span class="t-dot t-green"></span>
+                  </div>
+                  <span class="terminal-path">shashank-gowda@developer:~</span>
+                </div>
+                <div class="terminal-content">
+                  <div class="code-line">
+                    <span class="c-prompt">&gt;</span>
+                    <span class="c-key">const</span>
+                    <span class="c-string">developer</span>
+                    <span>=</span>
+                    <span class="c-val">{</span>
+                  </div>
+                  <div class="code-line" style="padding-left: 1.5rem;">
+                    <span class="c-key">name:</span>
+                    <span class="c-string">'Shashank Gowda'</span>,
+                  </div>
+                  <div class="code-line" style="padding-left: 1.5rem;">
+                    <span class="c-key">role:</span>
+                    <span class="c-string">'Full-Stack Engineer'</span>,
+                  </div>
+                  <div class="code-line" style="padding-left: 1.5rem;">
+                    <span class="c-key">stack:</span>
+                    <span class="c-val">['React', 'Node.js', 'Python', 'Tailwind']</span>,
+                  </div>
+                  <div class="code-line" style="padding-left: 1.5rem;">
+                    <span class="c-key">status:</span>
+                    <span class="c-string">'Building Next-Gen Web Platforms'</span>
+                  </div>
+                  <div class="code-line">
+                    <span class="c-val">}</span>;
+                  </div>
+                  <div class="code-line" style="margin-top: 1rem;">
+                    <span class="c-prompt">&gt;</span>
+                    <span class="c-comment">// Ready to collaborate!</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section-wrapper" id="projects">
+      <div class="container">
+        
+        <div class="section-title-box">
+          <span class="section-tag">// PORTFOLIO SHOWCASE</span>
+          <h2 class="section-heading">Featured <span class="text-gradient">Innovations</span></h2>
+        </div>
+
+        <!-- Interactive Filter Tabs -->
+        <div class="filter-tabs">
+          <button class="tab-btn active" data-filter="all">All Projects</button>
+          <button class="tab-btn" data-filter="web">Web Apps</button>
+          <button class="tab-btn" data-filter="ui">UI/UX Systems</button>
+          <button class="tab-btn" data-filter="cloud">Cloud Architecture</button>
+        </div>
+
+        <div class="cards-grid">
+          
+          <!-- Card 1 -->
+          <div class="card-3d" data-category="web">
+            <div>
+              <div class="card-top">
+                <div class="card-icon-wrapper">
+                  <i class="fa-solid fa-layer-group"></i>
+                </div>
+                <span class="card-badge">Full-Stack</span>
+              </div>
+              <h3 class="card-title">Nexus Cloud Platform</h3>
+              <p class="card-description">A real-time edge architecture dashboard featuring live telemetry, glassmorphism UI metrics, and serverless background execution.</p>
+              
+              <div class="tag-group">
+                <span class="tag">React</span>
+                <span class="tag">TypeScript</span>
+                <span class="tag">Tailwind</span>
+                <span class="tag">Node.js</span>
+              </div>
+            </div>
+            
+            <a href="#" class="card-action">
+              <span>View Case Study</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="card-3d" data-category="ui">
+            <div>
+              <div class="card-top">
+                <div class="card-icon-wrapper">
+                  <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </div>
+                <span class="card-badge">UI Framework</span>
+              </div>
+              <h3 class="card-title">Neon Glass Design System</h3>
+              <p class="card-description">Extensible CSS design tokens, dynamic dark mode gradients, ambient glow shaders, and ultra-accessible typography components.</p>
+              
+              <div class="tag-group">
+                <span class="tag">CSS Grid</span>
+                <span class="tag">Glassmorphism</span>
+                <span class="tag">Figma</span>
+              </div>
+            </div>
+
+            <a href="#" class="card-action">
+              <span>Explore Library</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="card-3d" data-category="cloud">
+            <div>
+              <div class="card-top">
+                <div class="card-icon-wrapper">
+                  <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <span class="card-badge">Security</span>
+              </div>
+              <h3 class="card-title">CyberShield Sentinel</h3>
+              <p class="card-description">Automated cloud security audit tool designed by Shashank Gowda with real-time threat detection and automated alert notifications.</p>
+              
+              <div class="tag-group">
+                <span class="tag">Python</span>
+                <span class="tag">Docker</span>
+                <span class="tag">AWS</span>
+              </div>
+            </div>
+
+            <a href="#" class="card-action">
+              <span>Check Repository</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+
+          <!-- Banner Showcase Card -->
+          <div class="card-3d showcase-banner" data-category="web">
+            <div>
+              <div class="status-pill" style="margin-bottom: 1rem;">
+                <i class="fa-solid fa-crown" style="color: #f59e0b;"></i>
+                <span>Flagship Project by Shashank Gowda</span>
+              </div>
+              <h3 class="card-title" style="font-size: 2.2rem; margin-bottom: 1rem;">Aura AI Visual Studio</h3>
+              <p class="card-description" style="font-size: 1.05rem;">
+                Next-generation web canvas application empowering creators to generate real-time visual art with neural render pipelines, responsive drag-and-drop nodes, and GPU accelerated shaders.
+              </p>
+              <div class="tag-group" style="margin-bottom: 2rem;">
+                <span class="tag">WebGL</span>
+                <span class="tag">Three.js</span>
+                <span class="tag">React</span>
+                <span class="tag">WebAssembly</span>
+              </div>
+              <a href="#" class="btn btn-glow">
+                <span>Launch Application</span>
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </a>
+            </div>
+
+            <div class="showcase-media">
+              <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop" alt="Shashank Gowda Flagship Project" onerror="this.src='https://placehold.co/1000x600/0f172a/ffffff?text=Shashank+Gowda+Aura+AI'">
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="contact">
+    <div class="container">
+      <div class="footer-grid">
+        
+        <div>
+          <a href="#" class="brand-logo">
+            <div class="logo-badge">
+              <i class="fa-solid fa-code"></i>
+            </div>
+            <span>SHASHANK<span style="color: var(--cyan-neon);">.GOWDA</span></span>
+          </a>
+          <p class="footer-brand-desc">
+            Crafted with advanced Web APIs, high-contrast dark theme optics, and responsive glassmorphic layouts.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Navigation</h4>
+          <ul class="footer-list">
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Technologies</h4>
+          <ul class="footer-list">
+            <li><a href="#">React & Next.js</a></li>
+            <li><a href="#">TypeScript</a></li>
+            <li><a href="#">Tailwind CSS</a></li>
+            <li><a href="#">WebGL / Canvas</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Connect</h4>
+          <ul class="footer-list">
+            <li><a href="#">GitHub Profile</a></li>
+            <li><a href="#">LinkedIn Network</a></li>
+            <li><a href="#">Twitter / X</a></li>
+            <li><a href="#">Email Shashank</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Shashank Gowda. All Rights Reserved.</p>
+        <div class="social-bar">
+          <a href="#" class="social-icon-btn" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+          <a href="#" class="social-icon-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" class="social-icon-btn" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // 1. Particle Canvas Background Script
+    const canvas = document.getElementById('particle-canvas');
+    const ctx = canvas.getContext('2d');
+
+    let particles = [];
+    const particleCount = 45;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 0.5;
+        this.vx = (Math.random() - 0.5) * 0.5;
+        this.vy = (Math.random() - 0.5) * 0.5;
+        this.alpha = Math.random() * 0.5 + 0.2;
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+
+        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+          this.reset();
+        }
+      }
+
+      draw() {
+        ctx.fillStyle = `rgba(56, 189, 248, ${this.alpha})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    for (let i = 0; i < particleCount; i++) {
+      particles.push(new Particle());
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+        particles[i].draw();
+
+        // Draw ambient connections between nearby points
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 120) {
+            ctx.strokeStyle = `rgba(168, 85, 247, ${0.15 * (1 - dist / 120)})`;
+            ctx.lineWidth = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      requestAnimationFrame(animateParticles);
+    }
+
+    animateParticles();
+
+    // 2. 3D Card Interactive Tilt Effect
+    const cards = document.querySelectorAll('.card-3d');
+
+    cards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = ((y - centerY) / centerY) * -8;
+        const rotateY = ((x - centerX) / centerX) * 8;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px) scale(1.02)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px) scale(1)`;
+      });
+    });
+
+    // 3. Project Filter Tabs
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const projectCards = document.querySelectorAll('.cards-grid .card-3d');
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.getAttribute('data-filter');
+
+        projectCards.forEach(card => {
+          if (filter === 'all' || card.getAttribute('data-category') === filter) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
